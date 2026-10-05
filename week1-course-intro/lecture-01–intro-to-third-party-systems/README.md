@@ -47,7 +47,7 @@ npm run dev
 
 ## 5. Exercise: Your first adapter
 
-Build the currency adapter in **your own shop**. Put the adapter in `integrations/currencyAdapter.ts` in the server, and implement it in the client.
+Build the currency adapter in **your own shop**. Put the adapter in `integrations/currencyAdapter.ts` in the server, and implement a currency converter in your client. Add a dropdown of at least 4 currencies [SEK, EUR, USD, IDK] in the navbar, that changes the product prices according to the chosen currency
 
 We go through it together at the start of lecture 2.
 Lecture 2 builds on your adapter with retries, validation and caching. So write code you want to meet again.
