@@ -5,8 +5,8 @@ This is how the reference code was created. Use it when you start a new project,
 **1. Project folder**
 
 ```bash
-mkdir frankfurther-integration
-cd frankfurther-integration
+mkdir frankfurter-integration
+cd frankfurter-integration
 ```
 
 **2. Server: Express + TypeScript**
@@ -60,7 +60,7 @@ Open http://localhost:3000/api/currency.
 
 **3. Client: React + TypeScript with Vite**
 
-In a new terminal, from the `frankfurther-integration` folder:
+In a new terminal, from the `frankfurter-integration` folder:
 
 ```bash
 npm create vite@latest client -- --template react-ts --no-interactive
