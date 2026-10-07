@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-// Same shape as the server's response from GET /api/supplier/products.
+// Same as server's response from GET /api/supplier/products.
 type Product = {
   sku: string;
   name: string;
