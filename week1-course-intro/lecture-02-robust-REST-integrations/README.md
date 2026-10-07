@@ -78,3 +78,4 @@ The exercise is for the rest of the week
 - [Zod documentation](https://zod.dev)
 - [OpenAPI specification](https://swagger.io/specification/)
 - [HTTP caching (MDN)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching)
+- [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)
