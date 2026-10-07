@@ -1,4 +1,4 @@
-import { string, z } from 'zod';
+import { z } from 'zod';
 import { fetchJson } from '../lib/fetchJson.ts';
 
 const BASE_URL = process.env.SUPPLIER_API_URL;
@@ -14,7 +14,7 @@ const SupplierProduct = z.object({
   benamning: z.string(),
   kategori: z.string(),
   prisOre: z.int().nonnegative(),
-  lagersaldo: z.int(),
+  lagersaldo: z.int().nullable(),
   varianter: z.string(),
   uppdaterad: z.iso.datetime(),
 });
