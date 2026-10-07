@@ -23,7 +23,7 @@ export async function getRates(base = 'SEK', symbols = ['SEK', 'EUR', 'USD']): P
         const response = await fetch(url)
         // console.log(response);
         const data = await response.json() as FrankfurtherRates
-        
+
         return {
           base: data.base,
           date: data.date,

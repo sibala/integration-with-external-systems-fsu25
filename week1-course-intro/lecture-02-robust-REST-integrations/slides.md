@@ -237,7 +237,10 @@ Documentation: https://leverantor-api.vercel.app/docs
 **Part 1 – Put the supplier integration to the test**
 Run `supplier-robust-integration/` and provoke: `/chaos/v1`, a wrong key, the rate limit. **Extra feature**: retries in `fetchJson`
 
-**Part 2 – Make your Frankfurter adapter robust**, in your own shop:
+**Part 2 - Add Retries to /lib/fetchJson.ts**
+Follow the instructions at the top of `server/src/lib/fetchJson.ts` and make `fetchJson` retry on `408`, `429`, `500`, `502`, `503` and `504`.
+
+**Part 3 – Make your Frankfurter adapter robust**, in your own shop:
 `fetchJson` with a timeout · Zod · a general error handler · a cache
 
 Instructions: `labb.md`
