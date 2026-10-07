@@ -1,9 +1,10 @@
 # Lab – Robust integrations
 
-The lab has two parts:
+The lab has three parts:
 
 1. **Put the supplier integration to the test.** Run `supplier-robust-integration/` from the live coding and provoke the errors it is built to handle. This is where you see what a timeout, Zod, error handling and a cache actually do.
-2. **Make your currency adapter robust.** Give the Frankfurter adapter in **your own shop** from lecture 1 the same protection.
+2. **Add Retries to /lib/fetchJson.ts.** Follow the instructions at the top of `server/src/lib/fetchJson.ts` and make `fetchJson` retry on `408`, `429`, `500`, `502`, `503` and `504`.
+3. **Make your currency adapter robust.** Give the Frankfurter adapter in **your own shop** from lecture 1 the same protection.
 
 ---
 
