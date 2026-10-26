@@ -2,7 +2,9 @@
 
 
 ## Video links
-
+- [01 – Shipping with PostNord Slides](https://medieinstitutet.sharepoint.com/sites/FSU25D/_layouts/15/stream.aspx?id=%2Fsites%2FFSU25D%2FDelade%20dokument%2FIntegration%20med%203%2Dpartssystem%2FRecordings%2FIntegration%20med%203%2Dpartssystem%2D20261026%5F090347%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Ee30ca71f%2Dfcdd%2D4e48%2Dba56%2D3b19c8014cf6)
+- [02 – Postnord account, API:s and code walkthrough](https://medieinstitutet.sharepoint.com/sites/FSU25D/_layouts/15/stream.aspx?id=%2Fsites%2FFSU25D%2FDelade%20dokument%2FIntegration%20med%203%2Dpartssystem%2FRecordings%2FIntegration%20med%203%2Dpartssystem%2D20261026%5F092542%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E9e17dda8%2Dc90d%2D4624%2D8434%2D504d8e8a4c25)
+- [03 – Labb 5 presentation with example](https://medieinstitutet.sharepoint.com/sites/FSU25D/_layouts/15/stream.aspx?id=%2Fsites%2FFSU25D%2FDelade%20dokument%2FIntegration%20med%203%2Dpartssystem%2FRecordings%2FIntegration%20med%203%2Dpartssystem%2D20261026%5F095907%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E4ffa3b35%2D2c7e%2D47e9%2Daa17%2Da04628c0ebc7)
 
 
 
@@ -74,7 +76,7 @@ The delivery time is not in the walkthrough either. You build it yourself, with 
 - [GitHub Copilot for students](https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-students) – apply in good time, it can take a few days
 - [GitHub Copilot plans](https://docs.github.com/en/copilot/concepts/billing/individual-plans) – what Copilot Free includes
 - [Copilot agent mode in VS Code](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode)
-- [Cline](https://cline.bot) and [OpenCode](https://opencode.ai) – open-source agents with free models
+- [Google Antigravity](https://antigravity.google) – an AI editor with an agent, free with a Google account (weekly quota)
 
 **Fetch**
 - [URLSearchParams (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
