@@ -5,7 +5,7 @@ const router = Router()
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET as string
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET as string
-const ACCESS_TOKEN_SECONDS = 10 // 30 s so you can watch it expire in the walkthrough – in a real shop e.g. 15 minutes.
+const ACCESS_TOKEN_SECONDS = 10 // 10 s so you can watch it expire in the walkthrough – in a real shop e.g. 15 minutes.
 const REFRESH_TOKEN_SECONDS = 7 * 24 * 60 * 60 // 7 days
 // httpOnly: JavaScript in the browser can't read the cookie – an XSS attack can't steal the token.
 // sameSite 'lax': the browser doesn't send the cookie when another site posts to our API – protects against CSRF.
@@ -30,6 +30,33 @@ router.post('/login', (req, res) => {
     return
   }
 
+  // ACCESS TOKEN
+  const accessToken = jwt.sign(
+    { id: USER.id, email: USER.email, role: USER.role}, 
+    ACCESS_TOKEN_SECRET, 
+    { expiresIn: ACCESS_TOKEN_SECONDS}
+  );
+  res.cookie(
+    'access_token', 
+    accessToken, 
+    {...COOKIE_OPTIONS, maxAge: ACCESS_TOKEN_SECONDS * 1000} // uses milliesconds, thats why we need to * 1000
+  )
+
+
+  // REFRESH TOKEN
+  const refreshToken = jwt.sign(
+    { id: USER.id, email: USER.email, role: USER.role}, 
+    REFRESH_TOKEN_SECRET, 
+    { expiresIn: REFRESH_TOKEN_SECONDS} // 7 days
+  );
+  res.cookie(
+    'refresh_token', 
+    refreshToken, 
+    {...COOKIE_OPTIONS, path: REFRESH_PATH, maxAge: REFRESH_TOKEN_SECONDS * 1000} // uses milliesconds, thats why we need to * 1000
+  )
+
+
+  // JWT
   // In your shop: save the refresh token in the DB together with the user's id,
   // e.g. a table refresh_tokens (user_id, token, expires_at). /refresh checks the row, /logout deletes it.
   res.json({ user: USER})
@@ -40,8 +67,11 @@ router.post('/login', (req, res) => {
 
 const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
   try {
-    // as jwt.JwtPayload
-
+    console.log('ACCESS: ', req.cookies.access_token)
+    console.log('REFRESH: ', req.cookies.refresh_token)
+    const payload = jwt.verify(req.cookies.access_token, ACCESS_TOKEN_SECRET)as jwt.JwtPayload ;
+    res.locals.payload = payload
+    next();
   } catch (err) {
     // The cookie disappears when maxAge has passed, so an expired cookie usually gives "Not logged in"
     const expired = err instanceof jwt.TokenExpiredError
@@ -50,11 +80,21 @@ const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
 }
 /* --- PROTECTED: GET /api/auth/protected  (access cookie) → { user } --- */
 router.get('/protected', verifyAccessToken, (_req, res) => {
-  res.json({ user: {} })
+  res.json({ payload: res.locals.payload })
 })
 
 
-const verifyRefreshToken = () => {}
+const verifyRefreshToken = (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const payload = jwt.verify(req.cookies.refresh_token, REFRESH_TOKEN_SECRET)as jwt.JwtPayload ;
+    res.locals.userId = payload.id
+    next();
+  } catch (err) {
+    // The cookie disappears when maxAge has passed, so an expired cookie usually gives "Not logged in"
+    const expired = err instanceof jwt.TokenExpiredError
+    res.status(401).json({ error: expired ? 'Token expired' : 'Not logged in' })
+  }
+}
 /* --- REFRESH: POST /api/auth/refresh  (refresh cookie) → a new access cookie --- */
 router.post('/refresh', verifyRefreshToken, (_req, res) => {
   // In your shop: find the user in the DB, and check that the refresh token isn't revoked.
@@ -62,7 +102,21 @@ router.post('/refresh', verifyRefreshToken, (_req, res) => {
     res.status(401).json({ error: 'Log in again' })
     return
   }
-  
+
+
+  // ACCESS TOKEN
+  const accessToken = jwt.sign(
+    { id: USER.id, email: USER.email, role: USER.role}, 
+    ACCESS_TOKEN_SECRET, 
+    { expiresIn: ACCESS_TOKEN_SECONDS}
+  );
+  res.cookie(
+    'access_token', 
+    accessToken, 
+    {...COOKIE_OPTIONS, maxAge: ACCESS_TOKEN_SECONDS * 1000} // uses milliesconds, thats why we need to * 1000
+  )
+
+  // Can also refresh the refresh token in the DB, for a securer rotation
   res.json({ user: USER })
 })
 
@@ -72,6 +126,8 @@ router.post('/refresh', verifyRefreshToken, (_req, res) => {
 /* --- LOGOUT: POST /api/auth/logout → both cookies removed --- */
 // React can't remove httpOnly cookies itself – the server has to.
 router.post('/logout', (_req, res) => {
+  res.clearCookie('access_token', COOKIE_OPTIONS)
+  res.clearCookie('refresh_token', {...COOKIE_OPTIONS, path: REFRESH_PATH})
   // In your shop: also revoke the refresh token in the DB.
   res.json({ loggedOut: true })
 })
