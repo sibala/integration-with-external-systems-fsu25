@@ -1,0 +1,1 @@
+# Only 1 lecture this week. Rest of the week will be reserved for physical meeting
