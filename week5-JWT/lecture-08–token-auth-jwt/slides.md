@@ -108,14 +108,14 @@ The walkthrough uses **30 s** for the access token, so you can watch it expire.
 # The flow
 
 ```
-React                         Express
-  │ email + password ────────►│ /login
-  │◄── access + refresh ──────│
-  │ /me + access token ──────►│ verify → 200
-  │        … 30 s later …     │
-  │ /me + access token ──────►│ verify → 401 "Token expired"
-  │ refresh token ───────────►│ /refresh → a new access token
-  │ /me + new access token ──►│ verify → 200
+React                              Express
+  │ email + password ─────────────►│ /login
+  │◄── access + refresh ───────────│
+  │ /protected + access token ────►│ verify → 200
+  │        … 30 s later …          │
+  │ /protected + access token ────►│ verify → 401 "Token expired"
+  │ refresh token ────────────────►│ /refresh → a new access token
+  │ /protected + new access token ►│ verify → 200
 ```
 
 The user stays logged in for 7 days – without the password again.
@@ -141,7 +141,7 @@ The user stays logged in for 7 days – without the password again.
 res.json({ accessToken, refreshToken })
 
 // The client sends it itself
-fetch('/api/me', { headers: { Authorization: `Bearer ${accessToken}` } })
+fetch('/api/auth/protected', { headers: { Authorization: `Bearer ${accessToken}` } })
 ```
 
 In a browser, React has to keep it somewhere:
@@ -165,7 +165,7 @@ res.cookie('access_token', accessToken, {
 ```
 
 ```ts
-fetch('/api/auth/me') // no token in React – the browser sends the cookie
+fetch('/api/auth/protected') // no token in React – the browser sends the cookie
 ```
 
 Fits: a web shop where React and the API are used in the browser. **The code walkthrough uses this.**
@@ -223,17 +223,30 @@ The gain isn't that it's harder to steal – it's that the server can **stop it*
 
 ---
 
+<style scoped>section { font-size: 26px; }</style>
+
 # Deployed on two domains?
 
-React on Vercel, API on Render = **different sites**. Then the cookies need:
+React on Vercel, API on Render = **different sites**. Then you need all three:
 
 ```ts
+// 1. The cookie
 { httpOnly: true, sameSite: 'none', secure: true }
+
+// 2. The server: CORS that allows cookies – the exact address, never '*'
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true })) // e.g. https://shop.vercel.app
+
+// 3. React: on EVERY fetch to the API – also /login, or the cookie is never saved
+fetch(`${API_URL}/api/auth/protected`, { credentials: 'include' })
 ```
 
-…and CORS that allows credentials, and `fetch(url, { credentials: 'include' })` in React.
+| | CORS + `credentials` | `sameSite: 'none'` |
+|---|---|---|
+| Proxy or rewrite (same origin) | Not needed | Not needed |
+| Locally without a proxy (`5173` → `3000`) | **Needed** | Not needed |
+| Deployed on two domains | **Needed** | **Needed** |
 
-Or: put the API under the same domain as React (a rewrite/proxy) – then `sameSite: 'lax'` works.
+Easiest: put the API under the same domain as React (a rewrite/proxy) – then `sameSite: 'lax'` works and no CORS is needed.
 
 ---
 
@@ -273,7 +286,7 @@ Deployed on Vercel/Render: keep the sessions **in the DB** (e.g. `connect-pg-sim
 
 1. `middleware/auth.ts`: `verifyAccessToken` and `verifyRefreshToken` check the cookies
 2. `routes/auth.ts`: login → two tokens, two secrets, two lifetimes, two httpOnly cookies
-3. React: wait 30 s → `/me` gives 401 → Refresh → `/me` works again
+3. React: wait 30 s → `/protected` gives 401 → Refresh → `/protected` works again
 4. DevTools → Application → Cookies: the cookies are there, `document.cookie` is empty
 
 **"In your shop:"** users in the DB with bcrypt, refresh tokens in the DB so they can be revoked.

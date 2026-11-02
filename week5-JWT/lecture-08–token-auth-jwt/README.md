@@ -50,11 +50,11 @@ Log in as `anna@example.com` / `hemligt123`. Every step is logged in the server 
    - The access token lives **30 s** (so you can watch it expire – in a real shop e.g. 15 min), the refresh token **7 days**
    - Two different secrets: a refresh token can never be used as an access token
    - `POST /api/auth/login` sets two cookies. The refresh cookie has `path: '/api/auth/refresh'`, so it's only sent there
-   - `GET /api/auth/me` uses `verifyAccessToken`. React never sees the token
+   - `GET /api/auth/protected` uses `verifyAccessToken`. React never sees the token
    - `POST /api/auth/refresh` uses `verifyRefreshToken` and sets a new access cookie
    - `POST /api/auth/logout` clears both cookies – React can't remove httpOnly cookies itself
 
-**Try it:** log in, call `/me`, wait 30 s and call `/me` again → `401`. Click **Refresh** and `/me` works again. Open DevTools → Application → Cookies: the cookies are there, but `document.cookie` on the page is empty.
+**Try it:** log in, call `/protected`, wait 30 s and call `/protected` again → `401`. Click **Refresh** and `/protected` works again. Open DevTools → Application → Cookies: the cookies are there, but `document.cookie` on the page is empty.
 
 The user is hardcoded at the top of `routes/auth.ts`. The **"In your shop:"** comments show what your shop does instead: users in the database with bcrypt-hashed passwords, and the refresh token saved in the database together with the user's id at login – `/refresh` checks that the row exists, and `/logout` deletes it.
 
