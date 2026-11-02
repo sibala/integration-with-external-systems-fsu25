@@ -109,3 +109,17 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* The server's answer as a readable JSON block */
+.result {
+  width: min(600px, 100% - 32px);
+  box-sizing: border-box;
+  margin: 24px auto;
+  text-align: left;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--code-bg);
+  color: var(--text-h);
+  font: 15px/150% var(--mono);
+  overflow-x: auto;
+}
