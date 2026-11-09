@@ -33,6 +33,7 @@ router.get('/google/callback', async (req, res) => {
   const { code, state, error } = req.query
   const expectedState = req.cookies.oauth_state
   // const codeVerifier = req.cookies.oauth_verifier // PKCE
+  
   res.clearCookie('oauth_state', FLOW_COOKIE) // used once – then thrown away
   // res.clearCookie('oauth_verifier', FLOW_COOKIE) // PKCE
 
@@ -41,6 +42,10 @@ router.get('/google/callback', async (req, res) => {
     res.redirect('/?error=cancelled')
     return
   }
+
+   console.log("CALLBACK state from cookie", expectedState)
+   console.log("CALLBACK state from google URL", state)
+   console.log("CALLBACK code from google URL", code)
   // Not the login WE started → stop (CSRF)
   if (typeof code !== 'string' || !expectedState || state !== expectedState) {
     res.redirect('/?error=state')
@@ -55,7 +60,10 @@ router.get('/google/callback', async (req, res) => {
       return
     }
 
-    // 3. The shop's OWN login: the same kind of httpOnly cookie as in L8's jwt-walkthrough
+
+    // 3. TO do in your shop: Save this information in the customer table in your DB, if the customer is new
+
+    // 4. The shop's OWN login: the same kind of httpOnly cookie as in L8's jwt-walkthrough
     // In your shop: find the customer by Google's sub – never by e-mail – or create them:
     //   insert into customers (google_sub, email, name) … on conflict (google_sub) do update …
     // and put YOUR customer id in the token instead of user.sub.

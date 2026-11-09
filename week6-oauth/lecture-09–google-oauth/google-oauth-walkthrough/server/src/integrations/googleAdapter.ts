@@ -22,6 +22,8 @@ export function getAuthorizeUrl(state: string /* , codeChallenge: string */) { /
     // code_challenge: codeChallenge, // PKCE: the hash of a secret only our server knows
     // code_challenge_method: 'S256', // PKCE
   })
+
+  console.log("getAuthorizeUrl", `https://accounts.google.com/o/oauth2/v2/auth?${params}`)
   return `https://accounts.google.com/o/oauth2/v2/auth?${params}`
 }
 
@@ -45,6 +47,8 @@ export async function exchangeCode(code: string /* , codeVerifier: string */) { 
     throw new Error(`Google refused the code: ${answer.error ?? response.status}`)
   }
 
+  console.log('Response from Google Token request, a JWT:', answer)
+
   // The ID token is a JWT (L8) – signed by Google. Paste it into jwt.io to see the payload.
   // We got it straight from Google over HTTPS, so we don't need to check the signature –
   // but we check that it was issued by Google, to OUR app, and hasn't expired.
@@ -52,6 +56,8 @@ export async function exchangeCode(code: string /* , codeVerifier: string */) { 
   if (claims.iss !== 'https://accounts.google.com' && claims.iss !== 'accounts.google.com') {
     throw new Error('The ID token is not from Google')
   }
+
+  console.log('Response from Google Token request, Dcoded JWT:', claims)
   if (claims.aud !== CLIENT_ID) throw new Error('The ID token is for another app')
   if (!claims.exp || claims.exp * 1000 < Date.now()) throw new Error('The ID token has expired')
 
