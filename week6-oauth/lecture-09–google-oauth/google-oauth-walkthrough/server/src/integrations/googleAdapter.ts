@@ -14,10 +14,10 @@ if (!CLIENT_ID || !CLIENT_SECRET || !CALLBACK_URL) {
 /* --- 1. Where we send the user: Google's own login page --- */
 export function getAuthorizeUrl(state: string /* , codeChallenge: string */) { // PKCE
   const params = new URLSearchParams({
-    client_id: CLIENT_ID,
-    redirect_uri: CALLBACK_URL, // must match an Authorized redirect URI in Google Cloud exactly
     response_type: 'code', // Authorization Code flow
+    client_id: CLIENT_ID,
     scope: 'openid email profile', // openid = we want an ID token. Only who the user is – nothing sensitive
+    redirect_uri: CALLBACK_URL, // must match an Authorized redirect URI in Google Cloud exactly
     state, // we check it in the callback → protects against CSRF
     // code_challenge: codeChallenge, // PKCE: the hash of a secret only our server knows
     // code_challenge_method: 'S256', // PKCE
