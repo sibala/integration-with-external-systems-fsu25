@@ -56,14 +56,6 @@ npm run dev             # http://localhost:5173
    - The shop sets **its own** httpOnly JWT cookie, as in L8's `jwt-walkthrough` – Google's tokens aren't saved
 3. **Logged in** – `GET /api/auth/me` uses `verifyToken` (`middleware/auth.ts`), and `POST /api/auth/logout` clears the cookie. Both only use the shop's own cookie
 
-**PKCE is commented out** – every line marked `// PKCE` in `routes/auth.ts` and `googleAdapter.ts`. The login works without it, because the server proves who it is with the client secret. Uncomment the lines and log in again: now a stolen code is worthless without the code verifier, which never leaves the server. Your shop uses PKCE (Labb 6).
-
-React links to `/api/auth/google` with an ordinary link – not `fetch`, because the browser itself has to go to Google and back.
-
-The walkthrough has no database. The **"In your shop:"** comment in `routes/auth.ts` shows what your shop does instead: find the customer by Google's `sub` – or create them – and put your own customer id in the cookie.
-
-**Try it:** log in, then try to cancel on Google and to change `state` in the callback URL – each gives its own message. Change `GOOGLE_CALLBACK_URL` to something that isn't in Google Cloud: Google stops the login with `redirect_uri_mismatch`.
-
 ## 3. Reading instructions
 
 - [OpenID Connect (Google for Developers)](https://developers.google.com/identity/openid-connect/openid-connect) – the flow, the token endpoint and the claims in the ID token
