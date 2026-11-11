@@ -65,6 +65,8 @@ In React, only the login is done. "Report a problem" is yours too: a form with a
 ## 3. Reading instructions
 
 - [Authorizing OAuth apps – the web application flow (GitHub Docs)](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps)
+- [Getting started with GitHub's REST API – the headers, the token, the answers](https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api)
 - [Scopes for OAuth apps (GitHub Docs)](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps)
 - [Managing your personal access tokens (GitHub Docs)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) – fine-grained tokens
 - [REST API: Create an issue (GitHub Docs)](https://docs.github.com/en/rest/issues/issues#create-an-issue)
+

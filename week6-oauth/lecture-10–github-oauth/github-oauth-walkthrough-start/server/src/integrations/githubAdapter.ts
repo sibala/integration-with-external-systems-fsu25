@@ -1,8 +1,3 @@
-// Adapter for GitHub: "Log in with GitHub" (OAuth 2.0) and issues (REST API).
-// The ONLY file that knows GitHub's URLs, client id, client secret and the shop's token.
-// Docs: https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
-//       https://docs.github.com/en/rest/issues/issues
-
 const CLIENT_ID = process.env.GITHUB_CLIENT_ID as string
 const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET as string
 const CALLBACK_URL = process.env.GITHUB_CALLBACK_URL as string
@@ -26,6 +21,10 @@ export function getAuthorizeUrl(state: string /* , codeChallenge: string */) { /
 }
 
 /* --- 2. The code from the callback → the admin's access token --- */
+// Getting started with GitHub's REST API – the headers, the token, the answers:
+//   https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api
+
+// https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#2-users-are-redirected-back-to-your-site-by-github
 export async function exchangeCode(code: string /* , codeVerifier: string */): Promise<string> { // PKCE
   const response = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
@@ -63,7 +62,7 @@ export async function getUser(accessToken: string) {
 
 /* ===== ISSUES – with the SHOP'S token, so GitHub shows the shop's account as the author ===== */
 
-// YOUR TURN (VG): fill in createIssue() and listOpenIssues().
+// YOUR TURN: fill in createIssue() and listOpenIssues().
 // Getting started with GitHub's REST API – the headers, the token, the answers:
 //   https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api
 // The same pattern as getUser() above – but with SHOP_TOKEN and REPO, not the admin's token.

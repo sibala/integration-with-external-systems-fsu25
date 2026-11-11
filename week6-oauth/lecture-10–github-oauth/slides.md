@@ -166,8 +166,6 @@ Using the shop's own token is simpler, and it works for everyone who is admin in
 | Deployed (tested) | `https://your-shop.vercel.app/api/auth/github/callback` |
 | Locally | `http://localhost:5173/api/auth/github/callback` |
 
-An OAuth App can have multiple Redirect URI, add both.
-
 ---
 
 # Code walkthrough: `github-oauth-walkthrough-start/`
