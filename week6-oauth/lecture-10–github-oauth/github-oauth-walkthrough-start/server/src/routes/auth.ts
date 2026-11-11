@@ -10,6 +10,7 @@ const router = Router()
 
 // Who is admin: a list of GitHub usernames in .env, e.g. anna-k,erik99
 // Many admins? Membership in the shop's GitHub organisation instead (scope read:org).
+// Example ADMINS = ['sibala','user1','user2']
 const ADMINS = process.env.ADMIN_GITHUB_LOGINS?.split(',') ?? []
 
 const SESSION_SECONDS = 8 * 60 * 60 // 8 hours – an admin's working day
@@ -55,6 +56,7 @@ router.get('/github/callback', async (req, res) => {
     console.log('[OAUTH] 3. GitHub says this is:', user.login)
     // The admin's access token isn't saved – the issues use the shop's own token.
 
+    
     if (!ADMINS.includes(user.login)) {
       res.redirect('/?error=not-admin')
       return

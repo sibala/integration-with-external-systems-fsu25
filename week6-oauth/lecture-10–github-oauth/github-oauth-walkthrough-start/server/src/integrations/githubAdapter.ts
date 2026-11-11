@@ -8,6 +8,7 @@ const SHOP_TOKEN = process.env.GITHUB_ISSUES_TOKEN as string
 /* ===== LOGIN – with the ADMIN'S GitHub account ===== */
 
 /* --- 1. Where we send the user: GitHub's own login page --- */
+// https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#1-request-a-users-github-identity
 export function getAuthorizeUrl(state: string /* , codeChallenge: string */) { // PKCE
   const params = new URLSearchParams({
     client_id: CLIENT_ID,
