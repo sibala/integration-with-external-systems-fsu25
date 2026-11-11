@@ -14,7 +14,7 @@ After this lecture you can:
 - let an admin log in to your shop with GitHub, and decide in the shop who is admin
 - call GitHub's REST API with the shop's own token, and create issues in the shop's repo
 - explain the difference between a user's OAuth token and the shop's own token
-- explain the risks when the shop has a token in `.env`, and how to limit them
+
 
 You build this in your own shop in **Labb 7** – the whole lab is the VG part of Assignment 2.
 
@@ -68,4 +68,3 @@ In React, only the login is done. "Report a problem" is yours too: a form with a
 - [Scopes for OAuth apps (GitHub Docs)](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps)
 - [Managing your personal access tokens (GitHub Docs)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) – fine-grained tokens
 - [REST API: Create an issue (GitHub Docs)](https://docs.github.com/en/rest/issues/issues#create-an-issue)
-- [PKCE support for OAuth and GitHub Apps (GitHub changelog, 2025)](https://github.blog/changelog/2025-07-14-pkce-support-for-oauth-and-github-app-authentication/)
