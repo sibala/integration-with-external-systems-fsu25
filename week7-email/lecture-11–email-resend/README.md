@@ -2,7 +2,7 @@
 
 
 ## Video links
-- [01 - Email Theory, Code and Labb 8](https://medieinstitutet.sharepoint.com/sites/FSU25D/_layouts/15/stream.aspx?id=%2Fsites%2FFSU25D%2FDelade%20dokument%2FIntegration%20med%203%2Dpartssystem%2FRecordings%2FIntegration%20med%203%2Dpartssystem%2D20261116%5F090441%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Ef66c89f5%2Db931%2D4b2e%2Da9ad%2D505bc03bf5c0)(60m)
+- [01 - Email slides, Code and Labb 8](https://medieinstitutet.sharepoint.com/sites/FSU25D/_layouts/15/stream.aspx?id=%2Fsites%2FFSU25D%2FDelade%20dokument%2FIntegration%20med%203%2Dpartssystem%2FRecordings%2FIntegration%20med%203%2Dpartssystem%2D20261116%5F090441%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Ef66c89f5%2Db931%2D4b2e%2Da9ad%2D505bc03bf5c0)(60m)
 
 
 
