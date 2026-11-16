@@ -60,4 +60,4 @@ The **"In your shop:"** comments in `email-walkthrough/` show what your shop doe
 - [Send Email (Resend API reference)](https://resend.com/docs/api-reference/emails/send-email)
 - [Idempotency keys (Resend)](https://resend.com/docs/dashboard/emails/idempotency-keys)
 - [Errors (Resend API reference)](https://resend.com/docs/api-reference/errors)
-- [Managing domains (Resend)](https://resend.com/docs/dashboard/domains/introduction) – May be applied only if you have your own Domain, not required for Labb 8
+- [Managing domains (Resend)](https://resend.com/docs/dashboard/domains/introduction) – May be applied only if you have your own domain, not required for Labb 8
